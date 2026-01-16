@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
-/* iOS Dark Theme Color Palette */
+/* ========================================
+   SoTech Sales Page - Revolutionary Redesign
+   Purple-Blue Palette + Premium Animations
+   ======================================== */
+
 :root {
   /* Background colors */
   --background: #000000;
@@ -8,21 +12,32 @@
   --background-tertiary: #1c1c1e;
 
   /* Glass effect colors */
-  --glass-bg: rgba(255, 255, 255, 0.07);
-  --glass-bg-hover: rgba(255, 255, 255, 0.10);
-  --glass-border: rgba(255, 255, 255, 0.15);
-  --glass-border-active: rgba(255, 255, 255, 0.25);
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-bg-hover: rgba(255, 255, 255, 0.09);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-border-active: rgba(255, 255, 255, 0.22);
 
   /* Text colors */
   --foreground: #ffffff;
   --text-primary: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.7);
-  --text-tertiary: rgba(255, 255, 255, 0.5);
+  --text-tertiary: rgba(255, 255, 255, 0.45);
 
-  /* iOS Accent colors */
-  --accent: #0a84ff;
-  --accent-glow: rgba(10, 132, 255, 0.35);
-  --accent-subtle: rgba(10, 132, 255, 0.15);
+  /* NEW: Purple-Blue Gradient Spectrum */
+  --violet: #8b5cf6;
+  --indigo: #6366f1;
+  --deep-blue: #4f46e5;
+
+  /* Primary accent is now indigo */
+  --accent: #6366f1;
+  --accent-light: #818cf8;
+  --accent-glow: rgba(99, 102, 241, 0.4);
+  --accent-subtle: rgba(99, 102, 241, 0.12);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #6366f1 50%, #4f46e5 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(99, 102, 241, 0.08) 100%);
+  --gradient-glow: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
 
   /* Success green */
   --success: #30d158;
@@ -31,6 +46,11 @@
   /* Popular badge orange */
   --popular: #ff9f0a;
   --popular-glow: rgba(255, 159, 10, 0.35);
+
+  /* Animation timing */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @theme inline {
@@ -38,17 +58,21 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
 
-  /* Custom colors */
   --color-glass-bg: var(--glass-bg);
   --color-glass-border: var(--glass-border);
   --color-accent: var(--accent);
+  --color-violet: var(--violet);
+  --color-indigo: var(--indigo);
   --color-success: var(--success);
   --color-popular: var(--popular);
   --color-text-secondary: var(--text-secondary);
   --color-text-tertiary: var(--text-tertiary);
 }
 
-/* Base styles */
+/* ========================================
+   Base Styles
+   ======================================== */
+
 html {
   scroll-behavior: smooth;
 }
@@ -62,23 +86,10 @@ body {
   overflow-x: hidden;
 }
 
-/* Background gradient orbs */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background:
-    radial-gradient(ellipse 800px 800px at 20% 10%, rgba(10, 132, 255, 0.12) 0%, transparent 50%),
-    radial-gradient(ellipse 600px 600px at 80% 50%, rgba(48, 209, 88, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse 500px 500px at 40% 80%, rgba(255, 159, 10, 0.06) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: -1;
-}
+/* ========================================
+   Glass Card System
+   ======================================== */
 
-/* Glass card base */
 .glass-card {
   background: var(--glass-bg);
   backdrop-filter: blur(40px);
@@ -86,9 +97,9 @@ body::before {
   border: 1px solid var(--glass-border);
   border-radius: 20px;
   box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.06),
     0 20px 40px rgba(0, 0, 0, 0.25);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s var(--ease-spring);
 }
 
 .glass-card:hover {
@@ -96,25 +107,22 @@ body::before {
   border-color: var(--glass-border-active);
   transform: translateY(-2px);
   box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 1px rgba(255, 255, 255, 0.08),
     0 25px 50px rgba(0, 0, 0, 0.3);
 }
 
-/* Selected glass card */
 .glass-card.selected {
   border-color: var(--accent);
   box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.06),
     0 0 0 1px var(--accent),
     0 20px 40px var(--accent-glow);
 }
 
-/* Popular badge variant */
 .glass-card.popular {
   border-color: var(--popular);
 }
 
-/* Selectable card (interactive) */
 .selectable-card {
   cursor: pointer;
   user-select: none;
@@ -125,7 +133,25 @@ body::before {
   outline-offset: 2px;
 }
 
-/* Animated number */
+/* ========================================
+   Typography
+   ======================================== */
+
+.gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-glow {
+  text-shadow: 0 0 40px var(--accent-glow);
+}
+
+/* ========================================
+   Animated Number
+   ======================================== */
+
 .animated-number {
   font-variant-numeric: tabular-nums;
   transition: opacity 0.15s ease, transform 0.15s ease;
@@ -136,11 +162,14 @@ body::before {
   transform: scale(0.98);
 }
 
-/* Scroll fade-in animation */
+/* ========================================
+   Scroll Animations
+   ======================================== */
+
 .fade-in {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
 }
 
 .fade-in.visible {
@@ -148,16 +177,27 @@ body::before {
   transform: translateY(0);
 }
 
-/* Staggered animation delay classes */
+.fade-in-scale {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-spring);
+}
+
+.fade-in-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Staggered delays */
 .delay-1 { transition-delay: 0.1s; }
 .delay-2 { transition-delay: 0.2s; }
 .delay-3 { transition-delay: 0.3s; }
 .delay-4 { transition-delay: 0.4s; }
-.delay-5 { transition-delay: 0.5s; }
-.delay-6 { transition-delay: 0.6s; }
-.delay-7 { transition-delay: 0.7s; }
 
-/* Checkbox indicator */
+/* ========================================
+   Form Controls
+   ======================================== */
+
 .checkbox-indicator {
   width: 24px;
   height: 24px;
@@ -166,7 +206,7 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all 0.2s var(--ease-spring);
   flex-shrink: 0;
 }
 
@@ -176,7 +216,6 @@ body::before {
   box-shadow: 0 0 15px var(--success-glow);
 }
 
-/* Radio indicator */
 .radio-indicator {
   width: 24px;
   height: 24px;
@@ -185,7 +224,7 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all 0.2s var(--ease-spring);
   flex-shrink: 0;
 }
 
@@ -202,7 +241,85 @@ body::before {
   box-shadow: 0 0 10px var(--accent-glow);
 }
 
-/* Container */
+/* ========================================
+   Toggle Switch (for add-ons)
+   ======================================== */
+
+.toggle-switch {
+  width: 48px;
+  height: 28px;
+  border-radius: 14px;
+  background: var(--glass-border);
+  position: relative;
+  transition: background 0.2s var(--ease-spring);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: white;
+  transition: transform 0.2s var(--ease-spring);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-switch.active {
+  background: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.toggle-switch.active::after {
+  transform: translateX(20px);
+}
+
+/* ========================================
+   Buttons
+   ======================================== */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: var(--gradient-primary);
+  color: white;
+  font-weight: 600;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-spring);
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--accent-glow);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-primary.pulse {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 4px 20px var(--accent-glow); }
+  50% { box-shadow: 0 4px 40px var(--accent-glow); }
+}
+
+/* ========================================
+   Layout
+   ======================================== */
+
 .container {
   width: 100%;
   max-width: 1200px;
@@ -210,12 +327,173 @@ body::before {
   padding: 0 1.5rem;
 }
 
-/* Section spacing */
 .section {
   padding: 5rem 0;
 }
 
-/* Reduced motion */
+/* ========================================
+   Hero Specific
+   ======================================== */
+
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-blob {
+  position: absolute;
+  filter: blur(60px);
+  opacity: 0.6;
+  animation: blob-drift 20s ease-in-out infinite;
+}
+
+.hero-blob-1 {
+  width: 500px;
+  height: 500px;
+  background: var(--violet);
+  top: -10%;
+  left: -5%;
+  animation-delay: 0s;
+}
+
+.hero-blob-2 {
+  width: 400px;
+  height: 400px;
+  background: var(--indigo);
+  top: 20%;
+  right: -10%;
+  animation-delay: -5s;
+}
+
+.hero-blob-3 {
+  width: 350px;
+  height: 350px;
+  background: var(--deep-blue);
+  bottom: -5%;
+  left: 30%;
+  animation-delay: -10s;
+}
+
+@keyframes blob-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -30px) scale(1.05); }
+  50% { transform: translate(-20px, 20px) scale(0.95); }
+  75% { transform: translate(20px, 30px) scale(1.02); }
+}
+
+/* ========================================
+   Scroll Prompt
+   ======================================== */
+
+.scroll-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fade-in-prompt 0.5s ease forwards;
+  animation-delay: 2s;
+}
+
+@keyframes fade-in-prompt {
+  to { opacity: 1; }
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--text-tertiary), transparent);
+  animation: scroll-line-draw 1.5s ease-in-out infinite;
+}
+
+@keyframes scroll-line-draw {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  50.1% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ========================================
+   Tier Expansion
+   ======================================== */
+
+.tier-details {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s var(--ease-spring), opacity 0.3s ease;
+}
+
+.tier-details.expanded {
+  max-height: 500px;
+  opacity: 1;
+}
+
+/* ========================================
+   Mobile Fixed Bar
+   ======================================== */
+
+.mobile-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--glass-border);
+  padding: 1rem 1.5rem;
+  z-index: 100;
+  transform: translateY(100%);
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.mobile-bottom-bar.visible {
+  transform: translateY(0);
+}
+
+/* ========================================
+   Comparison Slider
+   ======================================== */
+
+.comparison-slider {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/10;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: ew-resize;
+}
+
+.comparison-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: white;
+  cursor: ew-resize;
+  z-index: 10;
+}
+
+.comparison-handle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   Reduced Motion
+   ======================================== */
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -225,13 +503,21 @@ body::before {
     transition-duration: 0.01ms !important;
   }
 
-  .fade-in {
+  .fade-in,
+  .fade-in-scale {
     opacity: 1;
     transform: none;
   }
+
+  .hero-blob {
+    animation: none;
+  }
 }
 
-/* Scrollbar styling */
+/* ========================================
+   Scrollbar
+   ======================================== */
+
 ::-webkit-scrollbar {
   width: 8px;
 }

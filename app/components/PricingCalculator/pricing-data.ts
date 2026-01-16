@@ -10,6 +10,8 @@ export interface Tier {
   description: string;
   popular?: boolean;
   isCustom?: boolean;
+  features: string[];
+  deliverables: string[];
 }
 
 export interface Addon {
@@ -29,6 +31,19 @@ export const tiers: Tier[] = [
     pages: '3-5 pages',
     days: '7 days',
     description: 'Perfect for new businesses needing a professional online presence.',
+    features: [
+      'Custom responsive design',
+      'Contact form integration',
+      'Basic SEO setup',
+      'Mobile optimized',
+      '1 round of revisions',
+    ],
+    deliverables: [
+      'Homepage',
+      'About page',
+      'Services/Products page',
+      'Contact page',
+    ],
   },
   {
     id: 'growth',
@@ -39,6 +54,21 @@ export const tiers: Tier[] = [
     days: '10 days',
     description: 'For established businesses wanting more leads and conversions.',
     popular: true,
+    features: [
+      'Premium responsive design',
+      'Lead capture forms',
+      'Google Analytics setup',
+      'Blog/News section',
+      '2 rounds of revisions',
+      'Speed optimization',
+    ],
+    deliverables: [
+      'Everything in Starter',
+      'Portfolio/Gallery page',
+      'Testimonials section',
+      'FAQ page',
+      'Blog setup',
+    ],
   },
   {
     id: 'pro',
@@ -48,6 +78,22 @@ export const tiers: Tier[] = [
     pages: '8-12 pages',
     days: '14 days',
     description: 'Full-featured website with advanced functionality and integrations.',
+    features: [
+      'Advanced custom design',
+      'Scheduling integration',
+      'Chat widget setup',
+      'Advanced SEO',
+      '3 rounds of revisions',
+      'Performance optimization',
+      'CRM integration',
+    ],
+    deliverables: [
+      'Everything in Growth',
+      'Service area pages',
+      'Team/Staff page',
+      'Case studies',
+      'Resource center',
+    ],
   },
   {
     id: 'custom',
@@ -58,6 +104,20 @@ export const tiers: Tier[] = [
     days: 'TBD',
     description: 'Tailored solution for complex requirements and unique needs.',
     isCustom: true,
+    features: [
+      'Fully custom design',
+      'Custom functionality',
+      'Third-party integrations',
+      'E-commerce capable',
+      'Unlimited revisions',
+      'Priority support',
+    ],
+    deliverables: [
+      'Scoped to your needs',
+      'Custom page count',
+      'Unique features',
+      'Dedicated timeline',
+    ],
   },
 ];
 
@@ -96,44 +156,6 @@ export const addons: Addon[] = [
     priceRange: '$500-$1,500/mo',
     avgPrice: 1000,
     description: 'Content creation, posting, and community engagement.',
-  },
-];
-
-export const differentiators = [
-  {
-    icon: 'key',
-    title: 'You Own Everything',
-    description: 'Full ownership of domain, hosting, files, and accounts. No hostage situations.',
-  },
-  {
-    icon: 'chat',
-    title: 'Straight Talk, No Jargon',
-    description: 'Plain English communication. We explain things so they actually make sense.',
-  },
-  {
-    icon: 'lightning',
-    title: 'Fast Turnaround',
-    description: 'Your site live in 7-14 days, not months. We move at the speed of business.',
-  },
-  {
-    icon: 'target',
-    title: 'Results, Not Features',
-    description: 'We focus on what gets you leads and calls, not buzzwords and checkboxes.',
-  },
-  {
-    icon: 'calendar',
-    title: 'No Long Contracts',
-    description: 'Month-to-month flexibility. Stay because it works, not because you\'re locked in.',
-  },
-  {
-    icon: 'dollar',
-    title: 'Transparent Pricing',
-    description: 'Know exactly what you\'ll pay upfront. No hidden fees, no surprises.',
-  },
-  {
-    icon: 'location',
-    title: 'Houston Local',
-    description: 'We understand the market and we\'re here when you need us.',
   },
 ];
 
