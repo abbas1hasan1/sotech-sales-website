@@ -49,103 +49,136 @@ const icons: Record<string, React.ReactNode> = {
   ),
 };
 
-// Before mockup - Old WordPress style website
+// Shared content for both mockups - ensures identical structure
+const mockupContent = {
+  business: "Smith's Plumbing",
+  tagline: "Houston's Trusted Experts",
+  headline: "Quality Plumbing",
+  subheadline: "Services You Can Trust",
+  description: "24/7 emergency service. Fair pricing. Guaranteed work.",
+  services: [
+    { name: 'Leak Repair', icon: '💧' },
+    { name: 'Drain Cleaning', icon: '🔧' },
+    { name: 'Water Heaters', icon: '🔥' },
+  ],
+  stats: [
+    { value: '29+', label: 'Years' },
+    { value: '5K+', label: 'Jobs' },
+    { value: '4.9', label: 'Rating' },
+  ],
+  cta: 'Get a Quote',
+  navItems: ['Services', 'About', 'Contact'],
+};
+
+// Before mockup - Dated 2010-era corporate style (SAME STRUCTURE as After)
 function BeforeMockup() {
   return (
     <div className="w-full h-full flex items-center justify-center p-3">
       <div
-        className="w-full max-w-md rounded overflow-hidden shadow-lg"
-        style={{ background: '#ffffff', border: '1px solid #ddd', fontFamily: 'Georgia, Times, serif' }}
+        className="w-full max-w-md rounded overflow-hidden"
+        style={{
+          background: '#f0f0f0',
+          border: '2px solid #cccccc',
+          fontFamily: 'Georgia, Times New Roman, serif',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+        }}
       >
-        {/* Old-style header with gradient banner */}
+        {/* Header - same structure as After */}
         <div
-          className="h-12 flex items-center justify-between px-3"
-          style={{ background: 'linear-gradient(180deg, #4a7cb5 0%, #2d5a8a 100%)' }}
-        >
-          <span className="text-white font-bold text-sm" style={{ fontFamily: 'Arial, sans-serif' }}>
-            Smith&apos;s Plumbing
-          </span>
-          <div className="flex gap-2 text-[10px] text-white/80">
-            <span className="hover:underline cursor-pointer">Home</span>
-            <span className="hover:underline cursor-pointer">About</span>
-            <span className="hover:underline cursor-pointer">Services</span>
-            <span className="hover:underline cursor-pointer">Contact</span>
-          </div>
-        </div>
-
-        {/* Stock photo banner */}
-        <div
-          className="h-24 relative flex items-center justify-center"
+          className="flex items-center justify-between px-3 py-2"
           style={{
-            background: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), linear-gradient(135deg, #87CEEB 0%, #4682B4 100%)',
+            background: 'linear-gradient(180deg, #4a7cb5 0%, #2d5a8a 100%)',
+            borderBottom: '2px solid #1e4a6e',
           }}
         >
-          <div className="text-center text-white">
-            <p className="text-lg font-bold" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
-              Welcome to Our Website!
-            </p>
-            <p className="text-[10px] mt-1">Serving Houston Since 1995</p>
-          </div>
-        </div>
-
-        {/* Content with sidebar */}
-        <div className="flex" style={{ background: '#f5f5f5' }}>
-          {/* Main content */}
-          <div className="flex-1 p-3">
-            <h2 className="text-sm font-bold text-gray-800 mb-2">Our Services</h2>
-            <div className="space-y-2">
-              {['Leak Repair', 'Drain Cleaning', 'Water Heaters'].map((service) => (
-                <div key={service} className="flex items-start gap-2">
-                  <span className="text-blue-600 text-xs">►</span>
-                  <div>
-                    <p className="text-xs font-bold text-gray-700">{service}</p>
-                    <p className="text-[10px] text-gray-500">Lorem ipsum dolor sit amet</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <button
-              className="mt-3 px-3 py-1.5 text-[10px] text-white rounded"
-              style={{ background: 'linear-gradient(180deg, #4a90d9 0%, #357abd 100%)', border: '1px solid #2d6aa0' }}
+          <div className="flex items-center gap-2">
+            <div
+              className="w-5 h-5 rounded-sm flex items-center justify-center text-[8px] font-bold"
+              style={{ background: '#fff', color: '#2d5a8a' }}
             >
-              Contact Us Today!
-            </button>
+              SP
+            </div>
+            <span className="text-white font-bold text-xs">{mockupContent.business}</span>
           </div>
-
-          {/* Cluttered sidebar */}
-          <div className="w-28 p-2 border-l border-gray-300 space-y-2">
-            <div className="p-1.5 bg-yellow-100 border border-yellow-400 rounded text-[8px] text-center">
-              <p className="font-bold text-yellow-800">★ Special Offer!</p>
-              <p className="text-yellow-700">10% OFF</p>
-            </div>
-            <div className="p-1.5 bg-white border border-gray-300 rounded text-[8px]">
-              <p className="font-bold text-gray-700">Hours:</p>
-              <p className="text-gray-600">Mon-Fri 8-5</p>
-            </div>
-            <div className="p-1.5 bg-white border border-gray-300 rounded text-[8px]">
-              <p className="font-bold text-gray-700">Call Now!</p>
-              <p className="text-blue-600">(555) 123-4567</p>
-            </div>
-            <div className="flex gap-1 justify-center">
-              {['f', 't', 'in'].map((s) => (
-                <div key={s} className="w-4 h-4 bg-gray-400 rounded text-[8px] flex items-center justify-center text-white">
-                  {s}
-                </div>
-              ))}
-            </div>
+          <div className="flex gap-3 text-[9px] text-white/90">
+            {mockupContent.navItems.map((item) => (
+              <span key={item} className="hover:underline cursor-pointer">{item}</span>
+            ))}
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="px-3 py-2 bg-gray-200 border-t border-gray-300 text-[8px] text-gray-600 text-center">
-          © 2024 Smith&apos;s Plumbing | All Rights Reserved | Privacy Policy | Terms | Sitemap
+        {/* Hero section - same structure as After */}
+        <div className="px-4 py-5" style={{ background: '#ffffff' }}>
+          <p
+            className="text-[9px] uppercase tracking-wide mb-1 font-bold"
+            style={{ color: '#336699' }}
+          >
+            {mockupContent.tagline}
+          </p>
+          <h1
+            className="text-lg font-bold leading-tight mb-1"
+            style={{ color: '#333333', fontFamily: 'Arial, sans-serif' }}
+          >
+            {mockupContent.headline}
+            <br />
+            <span style={{ color: '#336699' }}>{mockupContent.subheadline}</span>
+          </h1>
+          <p className="text-[9px] mb-3" style={{ color: '#666666' }}>
+            {mockupContent.description}
+          </p>
+          <button
+            className="px-3 py-1.5 rounded text-[10px] text-white font-bold"
+            style={{
+              background: 'linear-gradient(180deg, #4a90d9 0%, #357abd 100%)',
+              border: '1px solid #2d6aa0',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+            }}
+          >
+            {mockupContent.cta}
+          </button>
+        </div>
+
+        {/* Services cards - same structure as After */}
+        <div className="px-4 py-3" style={{ background: '#e8e8e8', borderTop: '1px solid #ccc' }}>
+          <div className="grid grid-cols-3 gap-2">
+            {mockupContent.services.map((service) => (
+              <div
+                key={service.name}
+                className="p-2 rounded text-center"
+                style={{
+                  background: '#ffffff',
+                  border: '1px solid #cccccc',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
+                }}
+              >
+                <div className="text-sm mb-1">{service.icon}</div>
+                <p className="text-[8px] font-bold" style={{ color: '#333' }}>{service.name}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Stats bar - same structure as After */}
+        <div
+          className="flex justify-around py-2 mx-3 mb-3 rounded"
+          style={{
+            background: '#ffffff',
+            border: '1px solid #cccccc',
+          }}
+        >
+          {mockupContent.stats.map((stat) => (
+            <div key={stat.label} className="text-center">
+              <p className="text-sm font-bold" style={{ color: '#336699' }}>{stat.value}</p>
+              <p className="text-[7px] uppercase" style={{ color: '#666' }}>{stat.label}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
 }
 
-// After mockup - SoTech premium dark glassmorphic design
+// After mockup - SoTech premium dark glassmorphic design (SAME STRUCTURE as Before)
 function AfterMockup() {
   return (
     <div className="w-full h-full flex items-center justify-center p-3">
@@ -157,90 +190,96 @@ function AfterMockup() {
           boxShadow: '0 20px 40px rgba(0,0,0,0.4), 0 0 60px rgba(99, 102, 241, 0.1)',
         }}
       >
-        {/* Modern header */}
-        <div className="flex items-center justify-between px-4 py-3">
+        {/* Header - same structure as Before */}
+        <div
+          className="flex items-center justify-between px-3 py-2"
+          style={{
+            background: 'rgba(0,0,0,0.3)',
+            borderBottom: '1px solid rgba(255,255,255,0.1)',
+          }}
+        >
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-lg" style={{ background: 'var(--gradient-primary)' }} />
-            <span className="text-white font-semibold text-sm">Smith&apos;s</span>
-          </div>
-          <div className="flex gap-4 text-[10px]" style={{ color: 'rgba(255,255,255,0.6)' }}>
-            <span>Services</span>
-            <span>About</span>
-            <span
-              className="px-2 py-0.5 rounded"
-              style={{ background: 'var(--accent)', color: 'white' }}
-            >
-              Contact
-            </span>
-          </div>
-        </div>
-
-        {/* Hero section */}
-        <div className="px-4 py-6">
-          <p className="text-[10px] uppercase tracking-wider mb-2" style={{ color: 'var(--accent-light)' }}>
-            Houston&apos;s Trusted Experts
-          </p>
-          <h1 className="text-xl font-bold text-white leading-tight mb-2">
-            Plumbing that<br />
-            <span style={{ background: 'var(--gradient-primary)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              just works.
-            </span>
-          </h1>
-          <p className="text-[10px] mb-4" style={{ color: 'rgba(255,255,255,0.5)' }}>
-            24/7 emergency service. Fair pricing. Guaranteed work.
-          </p>
-          <div className="flex gap-2">
-            <button
-              className="px-3 py-1.5 rounded-lg text-[10px] text-white font-medium"
+            <div
+              className="w-5 h-5 rounded-lg flex items-center justify-center text-[8px] font-bold"
               style={{ background: 'var(--gradient-primary)' }}
             >
-              Get a Quote
-            </button>
-            <button
-              className="px-3 py-1.5 rounded-lg text-[10px] font-medium"
-              style={{ background: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.8)', border: '1px solid rgba(255,255,255,0.1)' }}
-            >
-              Our Services
-            </button>
+              <span className="text-white">S</span>
+            </div>
+            <span className="text-white font-semibold text-xs">{mockupContent.business}</span>
+          </div>
+          <div className="flex gap-3 text-[9px]" style={{ color: 'rgba(255,255,255,0.6)' }}>
+            {mockupContent.navItems.map((item, i) => (
+              <span
+                key={item}
+                className={i === mockupContent.navItems.length - 1 ? 'px-2 py-0.5 rounded' : ''}
+                style={i === mockupContent.navItems.length - 1 ? { background: 'var(--accent)', color: 'white' } : {}}
+              >
+                {item}
+              </span>
+            ))}
           </div>
         </div>
 
-        {/* Services cards */}
-        <div className="px-4 pb-4">
+        {/* Hero section - same structure as Before */}
+        <div className="px-4 py-5">
+          <p
+            className="text-[9px] uppercase tracking-wider mb-1"
+            style={{ color: 'var(--accent-light)' }}
+          >
+            {mockupContent.tagline}
+          </p>
+          <h1 className="text-lg font-bold text-white leading-tight mb-1">
+            {mockupContent.headline}
+            <br />
+            <span style={{ background: 'var(--gradient-primary)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              {mockupContent.subheadline}
+            </span>
+          </h1>
+          <p className="text-[9px] mb-3" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            {mockupContent.description}
+          </p>
+          <button
+            className="px-3 py-1.5 rounded-lg text-[10px] text-white font-medium"
+            style={{
+              background: 'var(--gradient-primary)',
+              boxShadow: '0 0 20px var(--accent-glow)',
+            }}
+          >
+            {mockupContent.cta}
+          </button>
+        </div>
+
+        {/* Services cards - same structure as Before */}
+        <div className="px-4 py-3">
           <div className="grid grid-cols-3 gap-2">
-            {[
-              { name: 'Leak Repair', icon: '💧' },
-              { name: 'Drains', icon: '🔧' },
-              { name: 'Heaters', icon: '🔥' },
-            ].map((service, i) => (
+            {mockupContent.services.map((service) => (
               <div
                 key={service.name}
-                className="p-2.5 rounded-lg text-center"
+                className="p-2 rounded-lg text-center"
                 style={{
                   background: 'rgba(255,255,255,0.03)',
                   border: '1px solid rgba(255,255,255,0.08)',
                 }}
               >
-                <div className="text-base mb-1">{service.icon}</div>
-                <p className="text-[9px] text-white font-medium">{service.name}</p>
+                <div className="text-sm mb-1">{service.icon}</div>
+                <p className="text-[8px] text-white font-medium">{service.name}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Stats bar */}
+        {/* Stats bar - same structure as Before */}
         <div
-          className="flex justify-around py-3 mx-4 mb-4 rounded-lg"
-          style={{ background: 'rgba(99, 102, 241, 0.1)', border: '1px solid rgba(99, 102, 241, 0.2)' }}
+          className="flex justify-around py-2 mx-3 mb-3 rounded-lg"
+          style={{
+            background: 'rgba(99, 102, 241, 0.1)',
+            border: '1px solid rgba(99, 102, 241, 0.2)',
+          }}
         >
-          {[
-            { value: '29+', label: 'Years' },
-            { value: '5K+', label: 'Jobs' },
-            { value: '4.9', label: 'Rating' },
-          ].map((stat) => (
+          {mockupContent.stats.map((stat) => (
             <div key={stat.label} className="text-center">
               <p className="text-sm font-bold text-white">{stat.value}</p>
-              <p className="text-[8px]" style={{ color: 'var(--accent-light)' }}>{stat.label}</p>
+              <p className="text-[7px] uppercase" style={{ color: 'var(--accent-light)' }}>{stat.label}</p>
             </div>
           ))}
         </div>

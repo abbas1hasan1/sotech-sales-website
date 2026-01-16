@@ -34,19 +34,20 @@ export default function Logo({ className = '', showText = true, size = 'md' }: L
           </linearGradient>
         </defs>
 
-        {/* Connection lines */}
-        <line x1="10" y1="8" x2="20" y2="16" stroke="url(#logoGradient)" strokeWidth="2" strokeLinecap="round" />
-        <line x1="10" y1="8" x2="10" y2="24" stroke="url(#logoGradient)" strokeWidth="2" strokeLinecap="round" />
-        <line x1="10" y1="24" x2="20" y2="16" stroke="url(#logoGradient)" strokeWidth="2" strokeLinecap="round" />
-        <line x1="10" y1="24" x2="20" y2="32" stroke="url(#logoGradient)" strokeWidth="2" strokeLinecap="round" />
-        <line x1="20" y1="16" x2="30" y2="16" stroke="url(#logoGradient)" strokeWidth="2" strokeLinecap="round" />
+        {/* Connection lines - forming an S-like network */}
+        <line x1="10" y1="10" x2="28" y2="10" stroke="url(#logoGradient)" strokeWidth="2.5" strokeLinecap="round" />
+        <line x1="10" y1="10" x2="10" y2="20" stroke="url(#logoGradient)" strokeWidth="2.5" strokeLinecap="round" />
+        <line x1="10" y1="20" x2="28" y2="20" stroke="url(#logoGradient)" strokeWidth="2.5" strokeLinecap="round" />
+        <line x1="28" y1="20" x2="28" y2="30" stroke="url(#logoGradient)" strokeWidth="2.5" strokeLinecap="round" />
+        <line x1="10" y1="30" x2="28" y2="30" stroke="url(#logoGradient)" strokeWidth="2.5" strokeLinecap="round" />
 
-        {/* Nodes */}
-        <circle cx="10" cy="8" r="4" fill="url(#logoGradient)" />
-        <circle cx="20" cy="16" r="5" fill="url(#logoGradient)" />
-        <circle cx="10" cy="24" r="4" fill="url(#logoGradient)" />
-        <circle cx="20" cy="32" r="4" fill="url(#logoGradient)" />
-        <circle cx="30" cy="16" r="3" fill="url(#logoGradient)" />
+        {/* Nodes - balanced positions forming S shape */}
+        <circle cx="10" cy="10" r="4.5" fill="url(#logoGradient)" />
+        <circle cx="28" cy="10" r="4" fill="url(#logoGradient)" />
+        <circle cx="10" cy="20" r="4" fill="url(#logoGradient)" />
+        <circle cx="28" cy="20" r="5" fill="url(#logoGradient)" />
+        <circle cx="28" cy="30" r="4" fill="url(#logoGradient)" />
+        <circle cx="10" cy="30" r="4.5" fill="url(#logoGradient)" />
       </svg>
 
       {/* Text */}
