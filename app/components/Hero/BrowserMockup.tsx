@@ -39,13 +39,11 @@ export default function BrowserMockup() {
     >
       {/* Browser frame */}
       <div
-        className="rounded-xl overflow-hidden"
+        className="rounded-xl overflow-hidden w-full max-w-[400px] lg:max-w-[480px]"
         style={{
           background: 'var(--glass-bg)',
           border: '1px solid var(--glass-border)',
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 60px var(--accent-glow)',
-          width: '100%',
-          maxWidth: '400px',
         }}
       >
         {/* Browser header */}
@@ -77,8 +75,8 @@ export default function BrowserMockup() {
 
         {/* Browser content - animated website preview */}
         <div
-          className="relative overflow-hidden"
-          style={{ height: '280px', background: 'linear-gradient(180deg, #0f0f1a 0%, #1a1a2e 100%)' }}
+          className="relative overflow-hidden h-[280px] lg:h-[320px]"
+          style={{ background: 'linear-gradient(180deg, #0f0f1a 0%, #1a1a2e 100%)' }}
         >
           {/* Animated content container */}
           <div className="browser-content-scroll">

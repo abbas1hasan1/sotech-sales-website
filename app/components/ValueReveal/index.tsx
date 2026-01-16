@@ -49,160 +49,200 @@ const icons: Record<string, React.ReactNode> = {
   ),
 };
 
-// Before mockup - cluttered template website
+// Before mockup - Old WordPress style website
 function BeforeMockup() {
   return (
-    <div className="w-full h-full p-4 flex items-center justify-center">
+    <div className="w-full h-full flex items-center justify-center p-3">
       <div
-        className="w-full max-w-sm rounded-lg overflow-hidden shadow-2xl"
-        style={{ background: '#1a1a1a', border: '1px solid #333' }}
+        className="w-full max-w-md rounded overflow-hidden shadow-lg"
+        style={{ background: '#ffffff', border: '1px solid #ddd', fontFamily: 'Georgia, Times, serif' }}
       >
-        {/* Browser chrome */}
-        <div className="flex items-center gap-1.5 px-3 py-2" style={{ background: '#0d0d0d' }}>
-          <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
-          <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
-          <div className="flex-1 mx-3 h-4 rounded bg-gray-800" />
+        {/* Old-style header with gradient banner */}
+        <div
+          className="h-12 flex items-center justify-between px-3"
+          style={{ background: 'linear-gradient(180deg, #4a7cb5 0%, #2d5a8a 100%)' }}
+        >
+          <span className="text-white font-bold text-sm" style={{ fontFamily: 'Arial, sans-serif' }}>
+            Smith&apos;s Plumbing
+          </span>
+          <div className="flex gap-2 text-[10px] text-white/80">
+            <span className="hover:underline cursor-pointer">Home</span>
+            <span className="hover:underline cursor-pointer">About</span>
+            <span className="hover:underline cursor-pointer">Services</span>
+            <span className="hover:underline cursor-pointer">Contact</span>
+          </div>
         </div>
 
-        {/* Cluttered website content */}
-        <div className="p-3 space-y-2" style={{ background: '#f5f5f5' }}>
-          {/* Messy nav with too many items */}
-          <div className="flex items-center justify-between">
-            <div className="w-16 h-4 rounded bg-blue-600" />
-            <div className="flex gap-1">
-              {[1,2,3,4,5,6].map(i => (
-                <div key={i} className="w-8 h-2 rounded bg-gray-400" />
+        {/* Stock photo banner */}
+        <div
+          className="h-24 relative flex items-center justify-center"
+          style={{
+            background: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), linear-gradient(135deg, #87CEEB 0%, #4682B4 100%)',
+          }}
+        >
+          <div className="text-center text-white">
+            <p className="text-lg font-bold" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
+              Welcome to Our Website!
+            </p>
+            <p className="text-[10px] mt-1">Serving Houston Since 1995</p>
+          </div>
+        </div>
+
+        {/* Content with sidebar */}
+        <div className="flex" style={{ background: '#f5f5f5' }}>
+          {/* Main content */}
+          <div className="flex-1 p-3">
+            <h2 className="text-sm font-bold text-gray-800 mb-2">Our Services</h2>
+            <div className="space-y-2">
+              {['Leak Repair', 'Drain Cleaning', 'Water Heaters'].map((service) => (
+                <div key={service} className="flex items-start gap-2">
+                  <span className="text-blue-600 text-xs">►</span>
+                  <div>
+                    <p className="text-xs font-bold text-gray-700">{service}</p>
+                    <p className="text-[10px] text-gray-500">Lorem ipsum dolor sit amet</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button
+              className="mt-3 px-3 py-1.5 text-[10px] text-white rounded"
+              style={{ background: 'linear-gradient(180deg, #4a90d9 0%, #357abd 100%)', border: '1px solid #2d6aa0' }}
+            >
+              Contact Us Today!
+            </button>
+          </div>
+
+          {/* Cluttered sidebar */}
+          <div className="w-28 p-2 border-l border-gray-300 space-y-2">
+            <div className="p-1.5 bg-yellow-100 border border-yellow-400 rounded text-[8px] text-center">
+              <p className="font-bold text-yellow-800">★ Special Offer!</p>
+              <p className="text-yellow-700">10% OFF</p>
+            </div>
+            <div className="p-1.5 bg-white border border-gray-300 rounded text-[8px]">
+              <p className="font-bold text-gray-700">Hours:</p>
+              <p className="text-gray-600">Mon-Fri 8-5</p>
+            </div>
+            <div className="p-1.5 bg-white border border-gray-300 rounded text-[8px]">
+              <p className="font-bold text-gray-700">Call Now!</p>
+              <p className="text-blue-600">(555) 123-4567</p>
+            </div>
+            <div className="flex gap-1 justify-center">
+              {['f', 't', 'in'].map((s) => (
+                <div key={s} className="w-4 h-4 bg-gray-400 rounded text-[8px] flex items-center justify-center text-white">
+                  {s}
+                </div>
               ))}
             </div>
           </div>
+        </div>
 
-          {/* Banner with stock photo placeholder */}
-          <div className="h-16 rounded bg-gradient-to-r from-blue-500 to-blue-700 flex items-center justify-center relative overflow-hidden">
-            <div className="absolute inset-0 opacity-30" style={{
-              backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px)'
-            }} />
-            <div className="space-y-1 text-center z-10">
-              <div className="w-32 h-3 mx-auto rounded bg-white/80" />
-              <div className="w-24 h-2 mx-auto rounded bg-white/50" />
-            </div>
-          </div>
-
-          {/* Too many CTAs */}
-          <div className="flex gap-1">
-            <div className="flex-1 h-6 rounded bg-red-500" />
-            <div className="flex-1 h-6 rounded bg-green-500" />
-            <div className="flex-1 h-6 rounded bg-orange-500" />
-          </div>
-
-          {/* Cluttered grid */}
-          <div className="grid grid-cols-4 gap-1">
-            {[1,2,3,4,5,6,7,8].map(i => (
-              <div key={i} className="aspect-square rounded bg-gray-300 flex items-center justify-center">
-                <div className="w-4 h-4 rounded bg-gray-400" />
-              </div>
-            ))}
-          </div>
-
-          {/* Wall of text */}
-          <div className="space-y-1">
-            {[1,2,3].map(i => (
-              <div key={i} className="h-1.5 rounded bg-gray-400" style={{ width: `${100 - i * 10}%` }} />
-            ))}
-          </div>
-
-          {/* Footer chaos */}
-          <div className="pt-2 border-t border-gray-300 flex justify-between">
-            <div className="flex gap-1">
-              {[1,2,3,4].map(i => (
-                <div key={i} className="w-4 h-4 rounded-full bg-gray-400" />
-              ))}
-            </div>
-            <div className="w-20 h-3 rounded bg-gray-400" />
-          </div>
+        {/* Footer */}
+        <div className="px-3 py-2 bg-gray-200 border-t border-gray-300 text-[8px] text-gray-600 text-center">
+          © 2024 Smith&apos;s Plumbing | All Rights Reserved | Privacy Policy | Terms | Sitemap
         </div>
       </div>
     </div>
   );
 }
 
-// After mockup - clean premium website
+// After mockup - SoTech premium dark glassmorphic design
 function AfterMockup() {
   return (
-    <div className="w-full h-full p-4 flex items-center justify-center">
+    <div className="w-full h-full flex items-center justify-center p-3">
       <div
-        className="w-full max-w-sm rounded-xl overflow-hidden shadow-2xl"
+        className="w-full max-w-md rounded-xl overflow-hidden"
         style={{
-          background: 'linear-gradient(180deg, #0f0f1a 0%, #1a1a2e 100%)',
-          border: '1px solid rgba(99, 102, 241, 0.3)',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 40px rgba(99, 102, 241, 0.15)'
+          background: 'linear-gradient(180deg, #0a0a12 0%, #12121a 100%)',
+          border: '1px solid rgba(99, 102, 241, 0.2)',
+          boxShadow: '0 20px 40px rgba(0,0,0,0.4), 0 0 60px rgba(99, 102, 241, 0.1)',
         }}
       >
-        {/* Browser chrome */}
-        <div className="flex items-center gap-1.5 px-3 py-2" style={{ background: 'rgba(0,0,0,0.3)' }}>
-          <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
-          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
-          <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
-          <div className="flex-1 mx-3 h-4 rounded-md flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.05)' }}>
-            <div className="w-2 h-2 rounded-full mr-1" style={{ background: '#30d158' }} />
-            <div className="w-16 h-2 rounded bg-white/20" />
+        {/* Modern header */}
+        <div className="flex items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-lg" style={{ background: 'var(--gradient-primary)' }} />
+            <span className="text-white font-semibold text-sm">Smith&apos;s</span>
+          </div>
+          <div className="flex gap-4 text-[10px]" style={{ color: 'rgba(255,255,255,0.6)' }}>
+            <span>Services</span>
+            <span>About</span>
+            <span
+              className="px-2 py-0.5 rounded"
+              style={{ background: 'var(--accent)', color: 'white' }}
+            >
+              Contact
+            </span>
           </div>
         </div>
 
-        {/* Clean website content */}
-        <div className="p-4 space-y-4">
-          {/* Minimal nav */}
-          <div className="flex items-center justify-between">
-            <div className="w-20 h-5 rounded" style={{ background: 'var(--gradient-primary)' }} />
-            <div className="flex gap-3">
-              {[1,2,3].map(i => (
-                <div key={i} className="w-10 h-2 rounded bg-white/20" />
-              ))}
-            </div>
+        {/* Hero section */}
+        <div className="px-4 py-6">
+          <p className="text-[10px] uppercase tracking-wider mb-2" style={{ color: 'var(--accent-light)' }}>
+            Houston&apos;s Trusted Experts
+          </p>
+          <h1 className="text-xl font-bold text-white leading-tight mb-2">
+            Plumbing that<br />
+            <span style={{ background: 'var(--gradient-primary)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              just works.
+            </span>
+          </h1>
+          <p className="text-[10px] mb-4" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            24/7 emergency service. Fair pricing. Guaranteed work.
+          </p>
+          <div className="flex gap-2">
+            <button
+              className="px-3 py-1.5 rounded-lg text-[10px] text-white font-medium"
+              style={{ background: 'var(--gradient-primary)' }}
+            >
+              Get a Quote
+            </button>
+            <button
+              className="px-3 py-1.5 rounded-lg text-[10px] font-medium"
+              style={{ background: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.8)', border: '1px solid rgba(255,255,255,0.1)' }}
+            >
+              Our Services
+            </button>
           </div>
+        </div>
 
-          {/* Hero section - clean */}
-          <div className="py-4 space-y-3">
-            <div className="w-3/4 h-5 rounded bg-white/90" />
-            <div className="w-1/2 h-5 rounded" style={{ background: 'var(--gradient-primary)', opacity: 0.8 }} />
-            <div className="w-2/3 h-2 rounded bg-white/30 mt-3" />
-            <div className="w-1/2 h-2 rounded bg-white/20" />
-            <div
-              className="w-28 h-8 rounded-lg mt-4"
-              style={{ background: 'var(--accent)' }}
-            />
-          </div>
-
-          {/* Clean cards */}
+        {/* Services cards */}
+        <div className="px-4 pb-4">
           <div className="grid grid-cols-3 gap-2">
-            {[1,2,3].map(i => (
+            {[
+              { name: 'Leak Repair', icon: '💧' },
+              { name: 'Drains', icon: '🔧' },
+              { name: 'Heaters', icon: '🔥' },
+            ].map((service, i) => (
               <div
-                key={i}
-                className="p-3 rounded-lg"
+                key={service.name}
+                className="p-2.5 rounded-lg text-center"
                 style={{
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(255,255,255,0.1)'
+                  background: 'rgba(255,255,255,0.03)',
+                  border: '1px solid rgba(255,255,255,0.08)',
                 }}
               >
-                <div
-                  className="w-6 h-6 rounded-lg mb-2"
-                  style={{ background: i === 1 ? 'var(--violet)' : i === 2 ? 'var(--indigo)' : 'var(--deep-blue)', opacity: 0.7 }}
-                />
-                <div className="w-full h-2 rounded bg-white/20 mb-1" />
-                <div className="w-2/3 h-1.5 rounded bg-white/10" />
+                <div className="text-base mb-1">{service.icon}</div>
+                <p className="text-[9px] text-white font-medium">{service.name}</p>
               </div>
             ))}
           </div>
+        </div>
 
-          {/* Stats - minimal */}
-          <div className="flex justify-between pt-2">
-            {[1,2,3].map(i => (
-              <div key={i} className="text-center">
-                <div className="w-10 h-4 mx-auto rounded bg-white/30 mb-1" />
-                <div className="w-12 h-1.5 mx-auto rounded bg-white/10" />
-              </div>
-            ))}
-          </div>
+        {/* Stats bar */}
+        <div
+          className="flex justify-around py-3 mx-4 mb-4 rounded-lg"
+          style={{ background: 'rgba(99, 102, 241, 0.1)', border: '1px solid rgba(99, 102, 241, 0.2)' }}
+        >
+          {[
+            { value: '29+', label: 'Years' },
+            { value: '5K+', label: 'Jobs' },
+            { value: '4.9', label: 'Rating' },
+          ].map((stat) => (
+            <div key={stat.label} className="text-center">
+              <p className="text-sm font-bold text-white">{stat.value}</p>
+              <p className="text-[8px]" style={{ color: 'var(--accent-light)' }}>{stat.label}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -266,7 +306,7 @@ export default function ValueReveal() {
             The <span className="gradient-text">SoTech</span> Difference
           </h2>
           <p className="text-lg max-w-lg mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            Drag to see what sets us apart
+            Same business. Transformed online presence.
           </p>
         </div>
 
@@ -280,36 +320,36 @@ export default function ValueReveal() {
           onTouchStart={handleMouseDown}
           onTouchEnd={handleMouseUp}
         >
-          {/* Before side - Typical Agency */}
-          <div
-            className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800"
-            style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
-          >
-            <BeforeMockup />
-            {/* Label overlay */}
-            <div className="absolute top-4 left-4 right-4 text-center">
-              <p className="text-gray-400 font-semibold text-sm">Typical Agency</p>
-              <p className="text-xs text-gray-600 mt-1">
-                Templates • Cluttered • Generic
-              </p>
-            </div>
-          </div>
-
-          {/* After side - SoTech */}
+          {/* Before side - Old WordPress */}
           <div
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(99, 102, 241, 0.08) 100%)',
+              background: '#e8e8e8',
+              clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`
+            }}
+          >
+            <BeforeMockup />
+            {/* Label overlay */}
+            <div className="absolute top-3 left-3 px-2 py-1 rounded bg-gray-800/80 backdrop-blur">
+              <p className="text-white font-medium text-xs">Before</p>
+            </div>
+          </div>
+
+          {/* After side - SoTech Premium */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(15, 15, 25, 1) 100%)',
               clipPath: `inset(0 0 0 ${sliderPosition}%)`
             }}
           >
             <AfterMockup />
             {/* Label overlay */}
-            <div className="absolute top-4 left-4 right-4 text-center">
-              <p className="font-semibold text-sm" style={{ color: 'var(--accent-light)' }}>SoTech</p>
-              <p className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>
-                Custom • Clean • Premium
-              </p>
+            <div
+              className="absolute top-3 right-3 px-2 py-1 rounded backdrop-blur"
+              style={{ background: 'var(--accent)', boxShadow: '0 0 20px var(--accent-glow)' }}
+            >
+              <p className="text-white font-medium text-xs">After</p>
             </div>
           </div>
 
@@ -323,14 +363,6 @@ export default function ValueReveal() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
               </svg>
             </div>
-          </div>
-
-          {/* Labels */}
-          <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full text-xs font-medium" style={{ background: 'rgba(0,0,0,0.5)' }}>
-            Before
-          </div>
-          <div className="absolute bottom-4 right-4 px-3 py-1 rounded-full text-xs font-medium" style={{ background: 'var(--accent-subtle)', color: 'var(--accent-light)' }}>
-            After
           </div>
         </div>
 
