@@ -17,7 +17,7 @@ export default function Logo({ className = '', showText = true, size = 'md' }: L
 
   return (
     <div className={`flex items-center ${gap} ${className}`}>
-      {/* Network/Molecule Icon */}
+      {/* Organic Scattered Network Icon */}
       <svg
         width={icon}
         height={icon}
@@ -34,20 +34,19 @@ export default function Logo({ className = '', showText = true, size = 'md' }: L
           </linearGradient>
         </defs>
 
-        {/* Connection lines - forming an S-like network */}
-        <line x1="10" y1="10" x2="28" y2="10" stroke="url(#logoGradient)" strokeWidth="2.5" strokeLinecap="round" />
-        <line x1="10" y1="10" x2="10" y2="20" stroke="url(#logoGradient)" strokeWidth="2.5" strokeLinecap="round" />
-        <line x1="10" y1="20" x2="28" y2="20" stroke="url(#logoGradient)" strokeWidth="2.5" strokeLinecap="round" />
-        <line x1="28" y1="20" x2="28" y2="30" stroke="url(#logoGradient)" strokeWidth="2.5" strokeLinecap="round" />
-        <line x1="10" y1="30" x2="28" y2="30" stroke="url(#logoGradient)" strokeWidth="2.5" strokeLinecap="round" />
+        {/* Connection lines - organic asymmetric network */}
+        <line x1="12" y1="8" x2="26" y2="14" stroke="url(#logoGradient)" strokeWidth="2" strokeLinecap="round" />
+        <line x1="26" y1="14" x2="32" y2="26" stroke="url(#logoGradient)" strokeWidth="2" strokeLinecap="round" />
+        <line x1="26" y1="14" x2="16" y2="22" stroke="url(#logoGradient)" strokeWidth="2" strokeLinecap="round" />
+        <line x1="16" y1="22" x2="8" y2="32" stroke="url(#logoGradient)" strokeWidth="2" strokeLinecap="round" />
+        <line x1="16" y1="22" x2="32" y2="26" stroke="url(#logoGradient)" strokeWidth="2" strokeLinecap="round" />
 
-        {/* Nodes - balanced positions forming S shape */}
-        <circle cx="10" cy="10" r="4.5" fill="url(#logoGradient)" />
-        <circle cx="28" cy="10" r="4" fill="url(#logoGradient)" />
-        <circle cx="10" cy="20" r="4" fill="url(#logoGradient)" />
-        <circle cx="28" cy="20" r="5" fill="url(#logoGradient)" />
-        <circle cx="28" cy="30" r="4" fill="url(#logoGradient)" />
-        <circle cx="10" cy="30" r="4.5" fill="url(#logoGradient)" />
+        {/* Nodes - scattered at varied positions with different sizes */}
+        <circle cx="12" cy="8" r="4" fill="url(#logoGradient)" />
+        <circle cx="26" cy="14" r="5" fill="url(#logoGradient)" />
+        <circle cx="16" cy="22" r="4.5" fill="url(#logoGradient)" />
+        <circle cx="32" cy="26" r="3.5" fill="url(#logoGradient)" />
+        <circle cx="8" cy="32" r="4" fill="url(#logoGradient)" />
       </svg>
 
       {/* Text */}

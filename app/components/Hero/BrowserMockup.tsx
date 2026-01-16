@@ -1,45 +1,11 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-
 export default function BrowserMockup() {
-  const mockupRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const mockup = mockupRef.current;
-    if (!mockup) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
-      const xPercent = (clientX / innerWidth - 0.5) * 2;
-      const yPercent = (clientY / innerHeight - 0.5) * 2;
-
-      mockup.style.transform = `
-        perspective(1000px)
-        rotateY(${xPercent * 5}deg)
-        rotateX(${-yPercent * 5}deg)
-        translateX(${xPercent * 10}px)
-        translateY(${yPercent * 10}px)
-      `;
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
   return (
-    <div
-      ref={mockupRef}
-      className="browser-mockup"
-      style={{
-        transition: 'transform 0.1s ease-out',
-        transformStyle: 'preserve-3d',
-      }}
-    >
+    <div className="browser-mockup">
       {/* Browser frame */}
       <div
-        className="rounded-xl overflow-hidden w-full max-w-[400px] lg:max-w-[480px]"
+        className="rounded-xl overflow-hidden w-full max-w-[400px] lg:max-w-[540px]"
         style={{
           background: 'var(--glass-bg)',
           border: '1px solid var(--glass-border)',
@@ -78,7 +44,7 @@ export default function BrowserMockup() {
           className="relative overflow-hidden h-[280px] lg:h-[320px]"
           style={{ background: 'linear-gradient(180deg, #0f0f1a 0%, #1a1a2e 100%)' }}
         >
-          {/* Animated content container */}
+          {/* Animated content container with auto-scroll */}
           <div className="browser-content-scroll">
             {/* Hero section mock */}
             <div className="p-6 space-y-4">

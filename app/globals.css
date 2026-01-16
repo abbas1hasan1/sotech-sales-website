@@ -550,6 +550,23 @@ body {
 }
 
 /* ========================================
+   Float Gentle Animation (for After mockup)
+   ======================================== */
+
+.float-gentle {
+  animation: float-gentle 4s ease-in-out infinite;
+}
+
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* ========================================
    Scrollbar
    ======================================== */
 
