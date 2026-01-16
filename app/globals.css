@@ -515,6 +515,41 @@ body {
 }
 
 /* ========================================
+   Browser Mockup
+   ======================================== */
+
+.browser-mockup {
+  position: relative;
+}
+
+.browser-content-scroll {
+  animation: browser-scroll 12s ease-in-out infinite;
+}
+
+@keyframes browser-scroll {
+  0%, 15% { transform: translateY(0); }
+  35%, 50% { transform: translateY(-80px); }
+  70%, 85% { transform: translateY(-160px); }
+  100% { transform: translateY(0); }
+}
+
+.browser-element-fade {
+  opacity: 0;
+  animation: browser-fade-in 0.8s ease-out forwards;
+}
+
+@keyframes browser-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
    Scrollbar
    ======================================== */
 

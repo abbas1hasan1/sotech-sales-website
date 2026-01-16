@@ -3,10 +3,26 @@
 import { useEffect, useRef, useState } from 'react';
 
 const valuePoints = [
-  { icon: 'key', text: 'You own everything' },
-  { icon: 'clock', text: '7-14 day delivery' },
-  { icon: 'handshake', text: 'No contracts' },
-  { icon: 'pin', text: 'Houston-based' },
+  {
+    icon: 'key',
+    text: 'You own everything',
+    description: 'Domain, hosting, code, design files—it\'s all yours. No hostage situations.',
+  },
+  {
+    icon: 'clock',
+    text: '7-14 day delivery',
+    description: 'While others quote months, we ship in weeks. Your time matters.',
+  },
+  {
+    icon: 'handshake',
+    text: 'No contracts',
+    description: 'Pay for what you need. Stay because you want to, not because you have to.',
+  },
+  {
+    icon: 'pin',
+    text: 'Houston-based',
+    description: 'Local team, real accountability. Same timezone, same standards.',
+  },
 ];
 
 const icons: Record<string, React.ReactNode> = {
@@ -104,23 +120,27 @@ export default function ValueReveal() {
           onTouchStart={handleMouseDown}
           onTouchEnd={handleMouseUp}
         >
-          {/* Before side - Generic/Template */}
+          {/* Before side - Typical Agency */}
           <div
             className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center"
             style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
           >
-            <div className="text-center p-8 opacity-60">
+            <div className="text-center p-8 opacity-70">
+              {/* Template grid icon */}
               <div className="w-16 h-16 mx-auto mb-4 rounded-lg bg-gray-700 flex items-center justify-center">
                 <svg className="w-8 h-8 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
                 </svg>
               </div>
-              <p className="text-gray-400 font-medium">Typical Agency</p>
-              <p className="text-sm text-gray-500 mt-2">Templates • Jargon • Contracts</p>
+              <p className="text-gray-300 font-semibold text-lg">Typical Agency</p>
+              <p className="text-sm text-gray-500 mt-3 max-w-xs mx-auto leading-relaxed">
+                Cookie-cutter templates. Endless revisions.<br />
+                Locked into contracts. Months of waiting.
+              </p>
             </div>
           </div>
 
-          {/* After side - SoTech quality */}
+          {/* After side - SoTech */}
           <div
             className="absolute inset-0 flex items-center justify-center"
             style={{
@@ -129,6 +149,7 @@ export default function ValueReveal() {
             }}
           >
             <div className="text-center p-8">
+              {/* Lightning bolt icon */}
               <div
                 className="w-16 h-16 mx-auto mb-4 rounded-lg flex items-center justify-center"
                 style={{ background: 'var(--gradient-primary)' }}
@@ -137,9 +158,10 @@ export default function ValueReveal() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <p className="font-semibold text-white">SoTech</p>
-              <p className="text-sm mt-2" style={{ color: 'var(--text-secondary)' }}>
-                Custom • Clear • Yours
+              <p className="font-semibold text-white text-lg">SoTech</p>
+              <p className="text-sm mt-3 max-w-xs mx-auto leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                Custom-built for your brand. You own everything.<br />
+                Live in 7-14 days. No contracts, ever.
               </p>
             </div>
           </div>
@@ -149,7 +171,7 @@ export default function ValueReveal() {
             className="comparison-handle"
             style={{ left: `${sliderPosition}%` }}
           >
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center cursor-ew-resize">
               <svg className="w-5 h-5 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
               </svg>
@@ -165,16 +187,24 @@ export default function ValueReveal() {
           </div>
         </div>
 
-        {/* Value points - horizontal scroll on mobile */}
-        <div className={`flex flex-wrap justify-center gap-3 md:gap-4 fade-in delay-2 ${isVisible ? 'visible' : ''}`}>
+        {/* Value points with descriptions */}
+        <div className={`grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto fade-in delay-2 ${isVisible ? 'visible' : ''}`}>
           {valuePoints.map((point, index) => (
             <div
               key={point.text}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full glass-card fade-in delay-${index + 1} ${isVisible ? 'visible' : ''}`}
+              className={`glass-card p-5 text-center fade-in delay-${index + 1} ${isVisible ? 'visible' : ''}`}
               style={{ animationDelay: `${0.3 + index * 0.1}s` }}
             >
-              <span style={{ color: 'var(--accent)' }}>{icons[point.icon]}</span>
-              <span className="text-sm font-medium whitespace-nowrap">{point.text}</span>
+              <div
+                className="w-10 h-10 mx-auto mb-3 rounded-full flex items-center justify-center"
+                style={{ background: 'var(--accent-subtle)' }}
+              >
+                <span style={{ color: 'var(--accent)' }}>{icons[point.icon]}</span>
+              </div>
+              <h3 className="font-semibold text-sm mb-2">{point.text}</h3>
+              <p className="text-xs leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>
+                {point.description}
+              </p>
             </div>
           ))}
         </div>

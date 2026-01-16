@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { tiers, addons, includedFeatures, TierId, formatCurrency } from './pricing-data';
+import { tiers, monthlyPackage, includedFeatures, TierId, formatCurrency } from './pricing-data';
 
 function useAnimatedNumber(value: number, duration: number = 400) {
   const [displayValue, setDisplayValue] = useState(value);
@@ -36,7 +36,7 @@ function useAnimatedNumber(value: number, duration: number = 400) {
 
 export default function PricingCalculator() {
   const [selectedTier, setSelectedTier] = useState<TierId | null>(null);
-  const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
+  const [includeMonthly, setIncludeMonthly] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -56,22 +56,11 @@ export default function PricingCalculator() {
     setSelectedTier(selectedTier === tierId ? null : tierId);
   };
 
-  const handleAddonToggle = (addonId: string) => {
-    setSelectedAddons((prev) =>
-      prev.includes(addonId)
-        ? prev.filter((id) => id !== addonId)
-        : [...prev, addonId]
-    );
-  };
-
   const oneTimeTotal = selectedTier
     ? tiers.find((t) => t.id === selectedTier)?.price ?? 0
     : 0;
 
-  const monthlyTotal = selectedAddons.reduce((sum, addonId) => {
-    const addon = addons.find((a) => a.id === addonId);
-    return sum + (addon?.avgPrice ?? 0);
-  }, 0);
+  const monthlyTotal = includeMonthly ? monthlyPackage.price : 0;
 
   const displayOneTime = useAnimatedNumber(oneTimeTotal);
   const displayMonthly = useAnimatedNumber(monthlyTotal);
@@ -82,215 +71,143 @@ export default function PricingCalculator() {
     <section ref={sectionRef} className="section" id="pricing">
       <div className="container">
         {/* Section header */}
-        <div className={`text-center mb-16 fade-in ${isVisible ? 'visible' : ''}`}>
+        <div className={`text-center mb-12 fade-in ${isVisible ? 'visible' : ''}`}>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Build <span className="gradient-text">Your Package</span>
+            Simple <span className="gradient-text">Pricing</span>
           </h2>
           <p className="text-lg max-w-xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            Select your website tier. Click to see what&apos;s included.
+            Two options. No hidden fees. You own everything.
           </p>
         </div>
 
-        {/* Tier Selector - Horizontal Stepper */}
-        <div className={`mb-8 fade-in delay-1 ${isVisible ? 'visible' : ''}`}>
-          {/* Desktop: Horizontal with connector lines */}
-          <div className="hidden md:flex items-center justify-center gap-0">
-            {tiers.map((tier, index) => (
-              <div key={tier.id} className="flex items-center">
-                {/* Tier button */}
-                <button
-                  onClick={() => handleTierSelect(tier.id)}
-                  className={`relative flex flex-col items-center p-6 rounded-2xl transition-all duration-300
-                    ${selectedTier === tier.id
-                      ? 'bg-[var(--glass-bg-hover)] scale-105 z-10'
-                      : 'hover:bg-[var(--glass-bg)]'
-                    }
-                    ${tier.popular && !selectedTier ? 'ring-2 ring-[var(--popular)]' : ''}
-                    ${selectedTier && selectedTier !== tier.id ? 'opacity-50' : ''}
-                  `}
-                  style={{
-                    borderColor: selectedTier === tier.id ? 'var(--accent)' : 'transparent',
-                    boxShadow: selectedTier === tier.id ? '0 0 30px var(--accent-glow)' : 'none'
-                  }}
-                >
-                  {tier.popular && (
-                    <span
-                      className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase"
-                      style={{ background: 'var(--popular)', color: '#000' }}
-                    >
-                      Popular
-                    </span>
-                  )}
-                  <span className="text-2xl font-bold">{tier.priceDisplay}</span>
-                  <span className="text-sm font-medium mt-1">{tier.name}</span>
-                  <span className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>
-                    {tier.days}
-                  </span>
-                </button>
-
-                {/* Connector line */}
-                {index < tiers.length - 1 && (
-                  <div
-                    className="w-12 h-0.5 mx-2"
-                    style={{
-                      background: selectedTier && tiers.findIndex(t => t.id === selectedTier) > index
-                        ? 'var(--accent)'
-                        : 'var(--glass-border)'
-                    }}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Mobile: Vertical accordion */}
-          <div className="md:hidden space-y-3">
-            {tiers.map((tier) => (
+        {/* Tier Cards - Side by Side */}
+        <div className={`grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-8 fade-in delay-1 ${isVisible ? 'visible' : ''}`}>
+          {tiers.map((tier) => {
+            const isSelected = selectedTier === tier.id;
+            return (
               <button
                 key={tier.id}
                 onClick={() => handleTierSelect(tier.id)}
-                className={`w-full glass-card p-4 text-left transition-all duration-300
-                  ${selectedTier === tier.id ? 'selected' : ''}
-                  ${tier.popular && !selectedTier ? 'popular' : ''}
+                className={`glass-card p-8 text-left transition-all duration-300 group
+                  ${isSelected ? 'ring-2 ring-[var(--accent)] scale-[1.02]' : 'hover:scale-[1.01]'}
                 `}
+                style={{
+                  boxShadow: isSelected ? '0 0 40px var(--accent-glow)' : 'none'
+                }}
               >
-                <div className="flex items-center justify-between">
+                {/* Header */}
+                <div className="flex items-start justify-between mb-4">
                   <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold">{tier.name}</span>
-                      {tier.popular && (
-                        <span
-                          className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase"
-                          style={{ background: 'var(--popular)', color: '#000' }}
-                        >
-                          Popular
-                        </span>
-                      )}
-                    </div>
-                    <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{tier.days}</span>
+                    <h3 className="text-xl font-bold mb-1">{tier.name}</h3>
+                    <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                      {tier.delivery} delivery
+                    </p>
                   </div>
-                  <span className="text-xl font-bold">{tier.priceDisplay}</span>
+                  <div className="text-right">
+                    <div className="text-3xl font-bold">{tier.priceDisplay}</div>
+                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>one-time</div>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <p className="text-sm mb-6" style={{ color: 'var(--text-secondary)' }}>
+                  {tier.description}
+                </p>
+
+                {/* Features */}
+                <ul className="space-y-2">
+                  {tier.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2 text-sm">
+                      <span style={{ color: 'var(--accent)' }}>
+                        <svg className="w-4 h-4 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                      <span style={{ color: 'var(--text-secondary)' }}>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Selection indicator */}
+                <div className={`mt-6 py-3 rounded-lg text-center text-sm font-medium transition-all
+                  ${isSelected
+                    ? 'bg-[var(--accent)] text-white'
+                    : 'bg-[var(--glass-bg)] text-[var(--text-secondary)] group-hover:bg-[var(--glass-bg-hover)]'
+                  }
+                `}>
+                  {isSelected ? 'Selected' : 'Select'}
                 </div>
               </button>
-            ))}
-          </div>
+            );
+          })}
         </div>
 
         {/* Expanded Tier Details */}
-        <div className={`tier-details ${selectedTier ? 'expanded' : ''} mb-12`}>
+        <div className={`tier-details ${selectedTier ? 'expanded' : ''} mb-8`}>
           {selectedTierData && (
-            <div className="glass-card p-6 md:p-8 max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-8">
-                {/* Left: Features */}
-                <div>
-                  <h3 className="font-semibold mb-4 flex items-center gap-2">
-                    <svg className="w-5 h-5" style={{ color: 'var(--accent)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    What&apos;s Included
-                  </h3>
-                  <ul className="space-y-2">
-                    {selectedTierData.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-2 text-sm">
-                        <span style={{ color: 'var(--success)' }}>✓</span>
-                        <span style={{ color: 'var(--text-secondary)' }}>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Right: Deliverables */}
-                <div>
-                  <h3 className="font-semibold mb-4 flex items-center gap-2">
-                    <svg className="w-5 h-5" style={{ color: 'var(--accent)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    You&apos;ll Get
-                  </h3>
-                  <ul className="space-y-2">
-                    {selectedTierData.deliverables.map((item) => (
-                      <li key={item} className="flex items-start gap-2 text-sm">
-                        <span style={{ color: 'var(--violet)' }}>→</span>
-                        <span style={{ color: 'var(--text-secondary)' }}>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {/* Included with all */}
-              <div className="mt-8 pt-6" style={{ borderTop: '1px solid var(--glass-border)' }}>
-                <p className="text-xs uppercase tracking-wider mb-3" style={{ color: 'var(--text-tertiary)' }}>
-                  Included with every package
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {includedFeatures.slice(0, 4).map((feature) => (
-                    <span
-                      key={feature}
-                      className="px-3 py-1 rounded-full text-xs"
-                      style={{ background: 'var(--accent-subtle)', color: 'var(--accent-light)' }}
-                    >
-                      {feature}
-                    </span>
-                  ))}
-                </div>
+            <div className="max-w-4xl mx-auto">
+              <div className="flex flex-wrap justify-center gap-2">
+                {includedFeatures.map((feature) => (
+                  <span
+                    key={feature}
+                    className="px-3 py-1 rounded-full text-xs"
+                    style={{ background: 'var(--accent-subtle)', color: 'var(--accent-light)' }}
+                  >
+                    {feature}
+                  </span>
+                ))}
               </div>
             </div>
           )}
         </div>
 
-        {/* Add-ons Section - Only show after tier selection */}
-        <div className={`transition-all duration-500 ${selectedTier ? 'opacity-100' : 'opacity-40 pointer-events-none'}`}>
-          <div className="text-center mb-6">
-            <h3 className="text-xl font-semibold mb-2">Enhance Your Package</h3>
+        {/* Monthly Growth Package Toggle */}
+        <div className={`max-w-2xl mx-auto transition-all duration-500 ${selectedTier ? 'opacity-100' : 'opacity-40 pointer-events-none'}`}>
+          <div className="text-center mb-4">
+            <h3 className="text-lg font-semibold mb-1">Add Monthly Growth</h3>
             <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-              Add monthly services to grow your business
+              {monthlyPackage.description}
             </p>
           </div>
 
-          {/* Add-on toggles */}
-          <div className="max-w-2xl mx-auto space-y-3">
-            {addons.map((addon) => {
-              const isActive = selectedAddons.includes(addon.id);
-              return (
-                <button
-                  key={addon.id}
-                  onClick={() => handleAddonToggle(addon.id)}
-                  className={`w-full flex items-center gap-4 p-4 rounded-xl transition-all duration-200
-                    ${isActive
-                      ? 'bg-[var(--accent-subtle)]'
-                      : 'bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)]'
-                    }
-                  `}
-                  style={{
-                    border: `1px solid ${isActive ? 'var(--accent)' : 'var(--glass-border)'}`,
-                    boxShadow: isActive ? '0 0 20px var(--accent-glow)' : 'none'
-                  }}
-                >
-                  {/* Toggle */}
-                  <div className={`toggle-switch ${isActive ? 'active' : ''}`} />
+          <button
+            onClick={() => setIncludeMonthly(!includeMonthly)}
+            className={`w-full flex items-center gap-4 p-5 rounded-xl transition-all duration-200
+              ${includeMonthly
+                ? 'bg-[var(--accent-subtle)]'
+                : 'bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)]'
+              }
+            `}
+            style={{
+              border: `1px solid ${includeMonthly ? 'var(--accent)' : 'var(--glass-border)'}`,
+              boxShadow: includeMonthly ? '0 0 30px var(--accent-glow)' : 'none'
+            }}
+          >
+            {/* Toggle */}
+            <div className={`toggle-switch ${includeMonthly ? 'active' : ''}`} />
 
-                  {/* Info */}
-                  <div className="flex-1 text-left">
-                    <div className="font-medium">{addon.name}</div>
-                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-                      {addon.description}
-                    </div>
-                  </div>
+            {/* Info */}
+            <div className="flex-1 text-left">
+              <div className="font-semibold">{monthlyPackage.name}</div>
+              <div className="text-xs mt-1 space-x-2" style={{ color: 'var(--text-tertiary)' }}>
+                {monthlyPackage.features.map((f, i) => (
+                  <span key={f}>
+                    {f}{i < monthlyPackage.features.length - 1 ? ' •' : ''}
+                  </span>
+                ))}
+              </div>
+            </div>
 
-                  {/* Price */}
-                  <div className="text-right">
-                    <div className="font-semibold" style={{ color: isActive ? 'var(--accent-light)' : 'var(--text-primary)' }}>
-                      {addon.priceRange}
-                    </div>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
+            {/* Price */}
+            <div className="text-right">
+              <div className="text-xl font-bold" style={{ color: includeMonthly ? 'var(--accent-light)' : 'var(--text-primary)' }}>
+                {monthlyPackage.priceDisplay}
+              </div>
+            </div>
+          </button>
         </div>
 
-        {/* Price Summary - Fixed on mobile, inline on desktop */}
+        {/* Price Summary */}
         <div className="mt-12 max-w-md mx-auto">
           <div
             className="glass-card p-6 text-center"
