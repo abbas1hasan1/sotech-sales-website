@@ -523,13 +523,12 @@ body {
 }
 
 .browser-content-scroll {
-  animation: browser-scroll 12s ease-in-out infinite;
+  animation: browser-scroll 12s linear infinite;
 }
 
 @keyframes browser-scroll {
-  0%, 15% { transform: translateY(0); }
-  35%, 50% { transform: translateY(-80px); }
-  70%, 85% { transform: translateY(-160px); }
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-160px); }
   100% { transform: translateY(0); }
 }
 
